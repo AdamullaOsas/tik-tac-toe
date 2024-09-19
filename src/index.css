@@ -42,4 +42,11 @@
         letter-spacing: 0.8px;
         color: #a8bfc9;
     }
+
+    .little {
+        font-family: "Outfit", sans-serif;
+        font-weight: 500;
+        font-size: 12px;
+        letter-spacing: 0.75px;
+    }
 }

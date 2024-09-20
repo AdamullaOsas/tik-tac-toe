@@ -6,16 +6,20 @@ import reset from "../assets/icon-restart.svg";
 import { useNavigate } from "react-router-dom";
 
 const Multi = () => {
+    const navigate = useNavigate();
     const [tiles, setTiles] = useState<Array<string | null>>(
         Array(9).fill(null)
     );
     const [isXNext, setIsXNext] = useState(true);
     const [winner, setWinner] = useState<string | null>(null);
-    const navigate = useNavigate();
 
     const [winsX, setWinsX] = useState(0);
     const [ties, setTies] = useState(0);
     const [winsO, setWinsO] = useState(0);
+
+    const [winningTiles, setWinningTiles] = useState<number[]>([]);
+
+    const [isReset, setIsReset] = useState(false);
 
     const calculateWinner = (tiles: Array<string | null>) => {
         const lines = [
@@ -34,20 +38,20 @@ const Multi = () => {
             if (tiles[a] && tiles[a] === tiles[b] && tiles[a] === tiles[c]) {
                 if (tiles[a] === "X") {
                     setWinsX((prev: number) => prev + 1);
-                    return "X";
+                    return { winner: "X", winningTiles: [a, b, c] };
                 } else {
                     setWinsO((prev: number) => prev + 1);
-                    return "O";
+                    return { winner: "O", winningTiles: [a, b, c] };
                 }
             }
         }
 
         if (tiles.every((tile) => tile !== null)) {
             setTies((prev: number) => prev + 1);
-            return "Tie";
+            return { winner: "Tie", winningTiles: [] };
         }
 
-        return null;
+        return { winner: null, winningTiles: [] };
     };
 
     const handleTileClick = (index: number) => {
@@ -57,8 +61,10 @@ const Multi = () => {
         newTiles[index] = isXNext ? "X" : "O";
         setTiles(newTiles);
 
-        const newWinner = calculateWinner(newTiles);
+        const { winner: newWinner, winningTiles: newWinningTiles } =
+            calculateWinner(newTiles);
         setWinner(newWinner);
+        setWinningTiles(newWinningTiles);
         setIsXNext(!isXNext);
     };
 
@@ -66,6 +72,7 @@ const Multi = () => {
         setTiles(Array(9).fill(null));
         setIsXNext(true);
         setWinner(null);
+        setIsReset(false);
         setWinsX(0);
         setTies(0);
         setWinsO(0);
@@ -75,6 +82,7 @@ const Multi = () => {
         setTiles(Array(9).fill(null));
         setIsXNext(true);
         setWinner(null);
+        setWinningTiles([]);
     };
 
     return (
@@ -96,8 +104,36 @@ const Multi = () => {
                             src={reset}
                             alt="reset game"
                             className="h-4 cursor-pointer"
-                            onClick={handleReset}
+                            onClick={() => setIsReset(true)}
                         />
+
+                        {isReset && (
+                            <div className="absolute top-0 left-0 min-h-screen w-full bg-black bg-opacity-50 flex items-center justify-center">
+                                <div className="w-full h-[228px] bg-navy flex items-center justify-center">
+                                    <div className="max-w-[280px] flex flex-col items-center justify-center">
+                                        <h1 className="headingM text-silver">
+                                            RESTART GAME?
+                                        </h1>
+                                        <div className="flex gap-4 mt-6">
+                                            <button
+                                                className="w-[139px] h-[52px] pb-1 bg-silver rounded-[10px] headingXS text-darkNavy shadow-[inset_0_-4px_0_#6B8997]"
+                                                onClick={() =>
+                                                    setIsReset(false)
+                                                }
+                                            >
+                                                NO, CANCEL
+                                            </button>
+                                            <button
+                                                className="w-[151px] h-[52px] pb-1 bg-orange rounded-[10px] headingXS text-darkNavy shadow-[inset_0_-4px_0_#CC8B13]"
+                                                onClick={handleReset}
+                                            >
+                                                YES, RESTART
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </button>
                 </div>
 
@@ -105,7 +141,14 @@ const Multi = () => {
                     {tiles.map((tile, index) => (
                         <button
                             key={index}
-                            className="w-[96px] h-[96px] bg-navy shadow-[inset_0_-8px_0_#10212A] rounded-[10px] flex items-center justify-center text-2xl font-bold text-white"
+                            className={`w-[96px] h-[96px] rounded-[10px] flex items-center justify-center text-2xl font-bold text-white
+                ${
+                    winningTiles.includes(index)
+                        ? winner === "X"
+                            ? "bg-blue"
+                            : "bg-orange"
+                        : "bg-navy"
+                } shadow-[inset_0_-8px_0_#10212A]`}
                             onClick={() => handleTileClick(index)}
                         >
                             {tile === "X" && (
@@ -113,15 +156,29 @@ const Multi = () => {
                                     src={iks}
                                     alt="X"
                                     className="size-10 mb-1"
+                                    style={
+                                        winningTiles.includes(index)
+                                            ? {
+                                                  filter: "brightness(0) saturate(100%) invert(9%) sepia(11%) saturate(2809%) hue-rotate(158deg) brightness(97%) contrast(85%)",
+                                              }
+                                            : undefined
+                                    }
                                 />
-                            )}{" "}
+                            )}
                             {tile === "O" && (
                                 <img
                                     src={ou}
                                     alt="O"
                                     className="size-10 mb-1"
+                                    style={
+                                        winningTiles.includes(index)
+                                            ? {
+                                                  filter: "brightness(0) saturate(100%) invert(9%) sepia(11%) saturate(2809%) hue-rotate(158deg) brightness(97%) contrast(85%)",
+                                              }
+                                            : undefined
+                                    }
                                 />
-                            )}{" "}
+                            )}
                         </button>
                     ))}
                 </div>

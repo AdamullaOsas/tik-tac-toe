@@ -12,12 +12,10 @@ const Home = () => {
         setActive(active === "X" ? "O" : "X");
     };
 
-    console.log(active);
-
     return (
         <div className="min-h-screen bg-darkNavy w-full flex items-center justify-center">
-            <div className="w-[328px] flex flex-col items-center text-center gap-8 ">
-                <img src={logo} alt="logo" />
+            <div className="w-[328px] sm:w-[460px] flex flex-col items-center text-center gap-8 sm:gap-10">
+                <img src={logo} alt="logo" className="" />
                 <div className="bg-navy w-full rounded-[15px] h-[205px] flex flex-col py-6 shadow-[inset_0_-8px_0_#10212A]">
                     <h1 className="headingXS mb-6">PICK PLAYER 1'S MARK</h1>
                     <div className="p-2 h-[72px] flex bg-darkNavy mx-6 rounded-[15px]">
@@ -62,13 +60,17 @@ const Home = () => {
                 </div>
                 <div className="w-full flex flex-col gap-4">
                     <button
-                        className="w-full h-14 bg-orange text-darkNavy headingXS shadow-[inset_0_-8px_0_#CC8B13] pb-2 rounded-[15px]"
-                        onClick={() => navigate("/single")}
+                        className="w-full h-14 sm:h-[67px] bg-orange text-darkNavy headingXS shadow-[inset_0_-8px_0_#CC8B13] pb-2 rounded-[15px]"
+                        onClick={() =>
+                            navigate("/single", {
+                                state: { playerMark: active },
+                            })
+                        }
                     >
                         NEW GAME (VS CPU)
                     </button>
                     <button
-                        className="w-full h-14 bg-blue text-darkNavy headingXS shadow-[inset_0_-8px_0_#118C87] pb-2 rounded-[15px]"
+                        className="w-full h-14 sm:h-[67px] bg-blue text-darkNavy headingXS shadow-[inset_0_-8px_0_#118C87] pb-2 rounded-[15px]"
                         onClick={() => navigate("/multi")}
                     >
                         NEW GAME (VS PLAYER)

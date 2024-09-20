@@ -87,10 +87,10 @@ const Multi = () => {
 
     return (
         <div className="w-full min-h-screen bg-darkNavy flex items-center justify-center">
-            <section className="w-[328px] flex flex-col">
-                <div className="flex w-full justify-between items-center mb-16">
+            <section className="w-[328px] sm:w-[460px] flex flex-col">
+                <div className="flex w-full justify-between items-center mb-16 sm:mb-5">
                     <img src={logo} alt="logo" className="h-8" />
-                    <div className="flex items-center h-10 bg-navy w-24 justify-center rounded-[5px] shadow-[inset_0_-4px_0_#10212A] pb-1">
+                    <div className="flex items-center h-10 sm:h-[52px] sm:w-[140px] bg-navy w-24 justify-center rounded-[5px] shadow-[inset_0_-4px_0_#10212A] pb-1">
                         <img
                             src={isXNext ? iks : ou}
                             alt="current turn"
@@ -99,11 +99,11 @@ const Multi = () => {
                         <p className="text-silver font-bold">TURN</p>
                     </div>
 
-                    <button className="bg-silver size-10 rounded-[5px] flex items-center justify-center shadow-[inset_0_-4px_0_#6B8997]">
+                    <button className="bg-silver size-10 sm:size-[52px] rounded-[5px] flex items-center justify-center shadow-[inset_0_-4px_0_#6B8997]">
                         <img
                             src={reset}
                             alt="reset game"
-                            className="h-4 cursor-pointer"
+                            className="h-4 sm:h-5 cursor-pointer"
                             onClick={() => setIsReset(true)}
                         />
 
@@ -137,11 +137,11 @@ const Multi = () => {
                     </button>
                 </div>
 
-                <div className="grid grid-cols-3 gap-[20px] mb-5">
+                <div className="grid grid-cols-3 gap-5 mb-5">
                     {tiles.map((tile, index) => (
                         <button
                             key={index}
-                            className={`w-[96px] h-[96px] rounded-[10px] flex items-center justify-center text-2xl font-bold text-white
+                            className={`w-[96px] h-[96px] sm:size-[140px] rounded-[10px] flex items-center justify-center text-2xl font-bold text-white
                 ${
                     winningTiles.includes(index)
                         ? winner === "X"
@@ -155,7 +155,7 @@ const Multi = () => {
                                 <img
                                     src={iks}
                                     alt="X"
-                                    className="size-10 mb-1"
+                                    className="size-10 mb-1 sm:size-16"
                                     style={
                                         winningTiles.includes(index)
                                             ? {
@@ -169,7 +169,7 @@ const Multi = () => {
                                 <img
                                     src={ou}
                                     alt="O"
-                                    className="size-10 mb-1"
+                                    className="size-10 mb-1 sm:size-16"
                                     style={
                                         winningTiles.includes(index)
                                             ? {
@@ -183,18 +183,30 @@ const Multi = () => {
                     ))}
                 </div>
 
-                <div className="flex items-center gap-5 h-[64px]">
-                    <div className="flex items-center justify-center flex-col w-full max-w-24 bg-blue rounded-[10px] h-full">
-                        <p className="little text-darkNavy">X (P1)</p>
-                        <h1 className="headingS text-darkNavy">{winsX}</h1>
+                <div className="flex items-center gap-5 h-[64px] sm:h-[72px]">
+                    <div className="flex items-center justify-center flex-col w-full max-w-24 sm:max-w-[140px] bg-blue rounded-[10px] h-full">
+                        <p className="little text-darkNavy sm:text-[14px]">
+                            X (P1)
+                        </p>
+                        <h1 className="headingS text-darkNavy sm:text-[24px]">
+                            {winsX}
+                        </h1>
                     </div>
-                    <div className="flex items-center justify-center flex-col w-full max-w-24 bg-silver rounded-[10px] h-full">
-                        <p className="little text-darkNavy">TIES</p>
-                        <h1 className="headingS text-darkNavy">{ties}</h1>
+                    <div className="flex items-center justify-center flex-col w-full max-w-24 sm:max-w-[140px] bg-silver rounded-[10px] h-full">
+                        <p className="little text-darkNavy sm:text-[14px]">
+                            TIES
+                        </p>
+                        <h1 className="headingS text-darkNavy sm:text-[24px]">
+                            {ties}
+                        </h1>
                     </div>
-                    <div className="flex items-center justify-center flex-col w-full max-w-24 bg-orange rounded-[10px] h-full">
-                        <p className="little text-darkNavy">O (P2)</p>
-                        <h1 className="headingS text-darkNavy">{winsO}</h1>
+                    <div className="flex items-center justify-center flex-col w-full max-w-24 sm:max-w-[140px] bg-orange rounded-[10px] h-full">
+                        <p className="little text-darkNavy sm:text-[14px]">
+                            O (P2)
+                        </p>
+                        <h1 className="headingS text-darkNavy sm:text-[24px]">
+                            {winsO}
+                        </h1>
                     </div>
                 </div>
             </section>

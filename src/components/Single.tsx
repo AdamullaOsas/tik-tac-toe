@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import logo from "../assets/logo.svg";
 import iks from "../assets/icon-x.svg";
 import ou from "../assets/icon-o.svg";
+import iksOutline from "../assets/icon-x-outline.svg";
+import ouOutline from "../assets/icon-o-outline.svg";
+
 import reset from "../assets/icon-restart.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -15,6 +18,9 @@ const Single = () => {
     const [isXNext, setIsXNext] = useState(playerMark === "X");
     const [winner, setWinner] = useState<string | null>(null);
     const [thinking, setThinking] = useState(false);
+    const [isComputerTurn, setIsComputerTurn] = useState(false);
+
+    const [hoveredTile, setHoveredTile] = useState<number | null>(null);
 
     const [winsPlayer, setWinsPlayer] = useState(0);
     const [ties, setTies] = useState(0);
@@ -103,6 +109,7 @@ const Single = () => {
     useEffect(() => {
         if (!isXNext && !winner && !thinking) {
             setThinking(true);
+            setIsComputerTurn(true);
             setTimeout(() => {
                 const newTiles = [...tiles];
                 computerMove(newTiles);
@@ -115,6 +122,7 @@ const Single = () => {
                 setWinningTiles(newWinningTiles);
                 setIsXNext(true);
                 setThinking(false);
+                setIsComputerTurn(false);
             }, 1000);
         }
     }, [isXNext, winner, thinking, calculateWinner, computerMove, tiles]);
@@ -137,7 +145,6 @@ const Single = () => {
         setWinningTiles([]);
         setThinking(false);
     };
-
     return (
         <div className="w-full min-h-screen bg-darkNavy flex items-center justify-center">
             <section className="w-[328px] sm:w-[460px] flex flex-col">
@@ -152,7 +159,7 @@ const Single = () => {
                         <p className="text-silver font-bold">TURN</p>
                     </div>
 
-                    <button className="bg-silver size-10 sm:size-[52px] rounded-[5px] flex items-center justify-center shadow-[inset_0_-4px_0_#6B8997]">
+                    <button className="bg-silver size-10 sm:size-[52px] rounded-[10px] flex items-center justify-center shadow-[inset_0_-4px_0_#6B8997] hover:bg-lightSilver">
                         <img
                             src={reset}
                             alt="reset game"
@@ -202,6 +209,12 @@ const Single = () => {
                                         : "bg-[#FFC860] shadow-[inset_0_-8px_0_#F2B137]"
                                     : "bg-navy shadow-[inset_0_-8px_0_#10212A]"
                             }`}
+                            onMouseEnter={() =>
+                                !isComputerTurn && setHoveredTile(index)
+                            }
+                            onMouseLeave={() =>
+                                !isComputerTurn && setHoveredTile(null)
+                            }
                             onClick={() => handleTileClick(index)}
                         >
                             {tile === "X" && (
@@ -230,6 +243,17 @@ const Single = () => {
                                               }
                                             : undefined
                                     }
+                                />
+                            )}
+                            {!tile && hoveredTile === index && (
+                                <img
+                                    src={
+                                        isXNext === (playerMark === "X")
+                                            ? iksOutline
+                                            : ouOutline
+                                    }
+                                    alt="hovered outline"
+                                    className="size-10 sm:size-16"
                                 />
                             )}
                         </button>

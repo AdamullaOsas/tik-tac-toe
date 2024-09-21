@@ -4,6 +4,8 @@ import iks from "../assets/icon-x.svg";
 import ou from "../assets/icon-o.svg";
 import reset from "../assets/icon-restart.svg";
 import { useNavigate } from "react-router-dom";
+import iksOutline from "../assets/icon-x-outline.svg";
+import ouOutline from "../assets/icon-o-outline.svg";
 
 const Multi = () => {
     const navigate = useNavigate();
@@ -16,6 +18,7 @@ const Multi = () => {
     const [winsX, setWinsX] = useState(0);
     const [ties, setTies] = useState(0);
     const [winsO, setWinsO] = useState(0);
+    const [hoveredTile, setHoveredTile] = useState<number | null>(null);
 
     const [winningTiles, setWinningTiles] = useState<number[]>([]);
 
@@ -99,7 +102,7 @@ const Multi = () => {
                         <p className="text-silver font-bold">TURN</p>
                     </div>
 
-                    <button className="bg-silver size-10 sm:size-[52px] rounded-[5px] flex items-center justify-center shadow-[inset_0_-4px_0_#6B8997]">
+                    <button className="bg-silver size-10 sm:size-[52px] rounded-[10px] flex items-center justify-center shadow-[inset_0_-4px_0_#6B8997] hover:bg-lightSilver">
                         <img
                             src={reset}
                             alt="reset game"
@@ -149,6 +152,8 @@ const Multi = () => {
                                             : "bg-[#FFC860] shadow-[inset_0_-8px_0_#F2B137]"
                                         : "bg-navy shadow-[inset_0_-8px_0_#10212A]"
                                 }`}
+                            onMouseEnter={() => setHoveredTile(index)}
+                            onMouseLeave={() => setHoveredTile(null)}
                             onClick={() => handleTileClick(index)}
                         >
                             {tile === "X" && (
@@ -177,6 +182,13 @@ const Multi = () => {
                                               }
                                             : undefined
                                     }
+                                />
+                            )}
+                            {!tile && hoveredTile === index && (
+                                <img
+                                    src={isXNext ? iksOutline : ouOutline}
+                                    alt="hovered outline"
+                                    className="size-10 sm:size-16"
                                 />
                             )}
                         </button>

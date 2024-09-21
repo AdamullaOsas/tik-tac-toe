@@ -21,7 +21,9 @@ const Home = () => {
                     <div className="p-2 h-[72px] flex bg-darkNavy mx-6 rounded-[15px]">
                         <button
                             className={`flex justify-center items-center flex-1 ${
-                                active === "X" ? "bg-silver rounded-[10px]" : ""
+                                active === "X"
+                                    ? "bg-silver rounded-[10px]"
+                                    : "rounded-[10px] hover:bg-silver hover:bg-opacity-5"
                             }`}
                             onClick={active === "O" ? handleClick : () => {}}
                         >
@@ -39,7 +41,9 @@ const Home = () => {
                         </button>
                         <button
                             className={`flex justify-center items-center flex-1 ${
-                                active === "O" ? "bg-silver rounded-[10px]" : ""
+                                active === "O"
+                                    ? "bg-silver rounded-[10px]"
+                                    : "rounded-[10px] hover:bg-silver hover:bg-opacity-5"
                             }`}
                             onClick={active === "X" ? handleClick : () => {}}
                         >
@@ -60,7 +64,7 @@ const Home = () => {
                 </div>
                 <div className="w-full flex flex-col gap-4">
                     <button
-                        className="w-full h-14 sm:h-[67px] bg-orange text-darkNavy headingXS shadow-[inset_0_-8px_0_#CC8B13] pb-2 rounded-[15px]"
+                        className="w-full h-14 sm:h-[67px] bg-orange text-darkNavy headingXS shadow-[inset_0_-8px_0_#CC8B13] pb-2 rounded-[15px] hover:bg-lightOrange"
                         onClick={() =>
                             navigate("/single", {
                                 state: { playerMark: active },
@@ -70,7 +74,7 @@ const Home = () => {
                         NEW GAME (VS CPU)
                     </button>
                     <button
-                        className="w-full h-14 sm:h-[67px] bg-blue text-darkNavy headingXS shadow-[inset_0_-8px_0_#118C87] pb-2 rounded-[15px]"
+                        className="w-full h-14 sm:h-[67px] bg-blue text-darkNavy headingXS shadow-[inset_0_-8px_0_#118C87] pb-2 rounded-[15px] hover:bg-lightBlue"
                         onClick={() => navigate("/multi")}
                     >
                         NEW GAME (VS PLAYER)

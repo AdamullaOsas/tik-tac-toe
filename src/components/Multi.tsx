@@ -142,13 +142,13 @@ const Multi = () => {
                         <button
                             key={index}
                             className={`w-[96px] h-[96px] sm:size-[140px] rounded-[10px] flex items-center justify-center text-2xl font-bold text-white
-                ${
-                    winningTiles.includes(index)
-                        ? winner === "X"
-                            ? "bg-blue"
-                            : "bg-orange"
-                        : "bg-navy"
-                } shadow-[inset_0_-8px_0_#10212A]`}
+                                ${
+                                    winningTiles.includes(index)
+                                        ? winner === "X"
+                                            ? "bg-[#65E9E4] shadow-[inset_0_-8px_0_#31C3BD]"
+                                            : "bg-[#FFC860] shadow-[inset_0_-8px_0_#F2B137]"
+                                        : "bg-navy shadow-[inset_0_-8px_0_#10212A]"
+                                }`}
                             onClick={() => handleTileClick(index)}
                         >
                             {tile === "X" && (

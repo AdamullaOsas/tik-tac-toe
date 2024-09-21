@@ -327,13 +327,13 @@ const Single = () => {
 
                                 <div className="flex gap-4 mt-6">
                                     <button
-                                        className="w-[76px] h-[52px] pb-1 bg-silver rounded-[10px] headingXS text-darkNavy shadow-[inset_0_-4px_0_#6B8997]"
+                                        className="w-[76px] h-[52px] pb-1 bg-silver rounded-[10px] headingXS text-darkNavy shadow-[inset_0_-4px_0_#6B8997] hover:bg-lightSilver"
                                         onClick={() => navigate("/")}
                                     >
                                         QUIT
                                     </button>
                                     <button
-                                        className="w-[146px] h-[52px] pb-1 bg-orange rounded-[10px] headingXS text-darkNavy shadow-[inset_0_-4px_0_#CC8B13]"
+                                        className="w-[146px] h-[52px] pb-1 bg-orange rounded-[10px] headingXS text-darkNavy shadow-[inset_0_-4px_0_#CC8B13] hover:bg-lightOrange"
                                         onClick={nextRound}
                                     >
                                         NEXT ROUND
